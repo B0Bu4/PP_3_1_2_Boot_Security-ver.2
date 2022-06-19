@@ -1,0 +1,22 @@
+    public void addAdmin(){
+        User admin = new User();
+        admin.setEmail("admin");
+        admin.setPassword("$2a$11$aEHR.54o2oOYykhPyaFbLuGdBfWxxr5z3h2X.gTuLy4qgl17Y2uL2");
+
+        Collection<Role> rolesList = new ArrayList<>();
+
+        Role roleOne = new Role();
+        roleOne.setName("ROLE_ADMIN");
+        roleService.save(roleOne);
+        rolesList.add(roleOne);
+
+        Role roleTwo = new Role();
+        roleTwo.setName("ROLE_USER");
+        roleService.save(roleTwo);
+        rolesList.add(roleTwo);
+
+
+        admin.setRoleSet(rolesList);
+
+        userDao.save(admin);
+    }
