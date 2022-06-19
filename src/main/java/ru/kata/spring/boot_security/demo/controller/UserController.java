@@ -13,7 +13,6 @@ import java.security.Principal;
 @RequestMapping(value = "/user")
 public class UserController {
 
-
     private final UserService userService;
 
     public UserController(UserService userService) {

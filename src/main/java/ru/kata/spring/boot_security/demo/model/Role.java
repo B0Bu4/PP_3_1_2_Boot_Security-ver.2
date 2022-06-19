@@ -13,7 +13,8 @@ public class Role implements GrantedAuthority {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name="role_name")
+
+    @Column(name = "role_name")
     private String name;
 
     @ManyToMany(mappedBy = "roleSet")
@@ -67,6 +68,4 @@ public class Role implements GrantedAuthority {
     public void setUserSet(Set<User> userSet) {
         this.userSet = userSet;
     }
-
-
 }

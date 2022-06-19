@@ -18,7 +18,8 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "email_address",unique = true)
+
+    @Column(name = "email_address", unique = true)
     private String email;
 
     @Column(name = "password")
@@ -26,15 +27,15 @@ public class User implements UserDetails {
 
 
     @ManyToMany
-    @JoinTable(name = "users_roles_table",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @JoinTable(name = "users_roles_table", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roleSet = new HashSet<>();
 
     public String getRolesView() {
         StringBuilder sb = new StringBuilder();
-        for (Role role : roleSet) { sb.append(role.getName());
-            sb.append("; ");}
+        for (Role role : roleSet) {
+            sb.append(role.getName());
+            sb.append("; ");
+        }
         return sb.toString();
     }
 

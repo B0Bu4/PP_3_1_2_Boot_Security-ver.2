@@ -30,7 +30,6 @@ public class AdminController {
         this.roleService = roleService;
     }
 
-
     @GetMapping()
     public String showAllUsers(Model model) {
         List<User> userList = userService.findAll();
@@ -52,8 +51,6 @@ public class AdminController {
         user.setRoleSet(roleSet);
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userService.save(user);
-
-
         return "redirect:/admin";
     }
 
