@@ -5,7 +5,6 @@ import ru.kata.spring.boot_security.demo.model.Role;
 
 import java.util.Collection;
 
-
 @Repository
 public interface RoleDao {
 
@@ -14,4 +13,6 @@ public interface RoleDao {
     void save(Role role);
 
     void deleteAll(Collection<Role> roles);
+
+    Collection<Role> findAllRolesByNameOnDataBase(String[] roles);
 }

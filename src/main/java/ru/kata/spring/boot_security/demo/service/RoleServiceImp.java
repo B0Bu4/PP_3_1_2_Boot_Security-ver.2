@@ -30,7 +30,12 @@ public class RoleServiceImp implements RoleService {
 
     @Override
     @Transactional
-    public void deleteAll(Collection<Role> roles){
+    public void deleteAll(Collection<Role> roles) {
         roleDao.deleteAll(roles);
+    }
+
+    @Override
+    public Collection<Role> findAllRolesByNameOnDataBase(String[] roles) {
+        return roleDao.findAllRolesByNameOnDataBase(roles);
     }
 }

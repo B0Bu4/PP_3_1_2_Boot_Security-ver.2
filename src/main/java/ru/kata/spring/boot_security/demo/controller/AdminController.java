@@ -46,9 +46,7 @@ public class AdminController {
 
     @PostMapping("/users-add")
     public String addUser(@ModelAttribute("user") User user, @RequestParam(value = "role") String[] roles) {
-        Set<Role> roleSet = userService.getRoleToSet(roles);
-        roleService.saveAll(roleSet);
-        user.setRoleSet(roleSet);
+        user.setRoleSet(roleService.findAllRolesByNameOnDataBase(roles));
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userService.save(user);
         return "redirect:/admin";
@@ -62,9 +60,7 @@ public class AdminController {
 
     @PostMapping("/user-update")
     public String updateUser(@ModelAttribute("user") User user, @RequestParam(value = "role") String[] roles) {
-        Set<Role> roleSet = userService.getRoleToSet(roles);
-        roleService.saveAll(roleSet);
-        user.setRoleSet(roleSet);
+        user.setRoleSet(roleService.findAllRolesByNameOnDataBase(roles));
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userService.saveAndFlush(user);
         return "redirect:/admin";

@@ -10,4 +10,6 @@ public interface RoleService {
     void save(Role role);
 
     void deleteAll(Collection<Role> roles);
+
+    Collection<Role> findAllRolesByNameOnDataBase(String[] roles);
 }
