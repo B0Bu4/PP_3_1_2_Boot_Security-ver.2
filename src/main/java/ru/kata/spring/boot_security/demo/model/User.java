@@ -30,16 +30,8 @@ public class User implements UserDetails {
     @JoinTable(name = "users_roles_table",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roleSet = new HashSet<>();
+    private Set<Role> roles = new HashSet<>();
 
-    public String getRolesView() {
-        StringBuilder sb = new StringBuilder();
-        for (Role role : roleSet) {
-            sb.append(role.getName());
-            sb.append("; ");
-        }
-        return sb.toString();
-    }
 
     public User() {
     }
@@ -67,7 +59,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return mapRolesToAuthorities(roleSet);
+        return mapRolesToAuthorities(roles);
     }
 
     public Long getId() {
@@ -120,11 +112,11 @@ public class User implements UserDetails {
         this.password = password;
     }
 
-    public Collection<Role> getRoleSet() {
-        return roleSet;
+    public Collection<Role> getRoles() {
+        return roles;
     }
 
-    public void setRoleSet(Collection<Role> roleSet) {
-        this.roleSet = (Set<Role>) roleSet;
+    public void setRoles(Collection<Role> roleSet) {
+        this.roles = (Set<Role>) roleSet;
     }
 }

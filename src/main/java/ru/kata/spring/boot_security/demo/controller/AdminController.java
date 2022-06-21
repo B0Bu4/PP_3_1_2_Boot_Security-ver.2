@@ -1,7 +1,6 @@
 package ru.kata.spring.boot_security.demo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +11,6 @@ import ru.kata.spring.boot_security.demo.service.UserService;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Controller
 @RequestMapping("/admin")
@@ -21,8 +19,6 @@ public class AdminController {
     private final UserService userService;
 
     private final RoleService roleService;
-
-    private BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(11);
 
     @Autowired
     public AdminController(UserService userService, RoleService roleService) {
@@ -46,8 +42,7 @@ public class AdminController {
 
     @PostMapping("/users-add")
     public String addUser(@ModelAttribute("user") User user, @RequestParam(value = "role") String[] roles) {
-        user.setRoleSet(roleService.findAllRolesByNameOnDataBase(roles));
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        user.setRoles(roleService.findAllRolesByNameOnDataBase(roles));
         userService.save(user);
         return "redirect:/admin";
     }
@@ -60,8 +55,7 @@ public class AdminController {
 
     @PostMapping("/user-update")
     public String updateUser(@ModelAttribute("user") User user, @RequestParam(value = "role") String[] roles) {
-        user.setRoleSet(roleService.findAllRolesByNameOnDataBase(roles));
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        user.setRoles(roleService.findAllRolesByNameOnDataBase(roles));
         userService.saveAndFlush(user);
         return "redirect:/admin";
     }

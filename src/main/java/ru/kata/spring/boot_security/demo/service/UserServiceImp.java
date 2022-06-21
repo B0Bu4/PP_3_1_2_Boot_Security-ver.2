@@ -1,8 +1,10 @@
 package ru.kata.spring.boot_security.demo.service;
 
 import org.hibernate.Hibernate;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.repository.UserDao;
@@ -15,8 +17,11 @@ public class UserServiceImp implements UserService {
 
     private final UserDao userDao;
 
-    public UserServiceImp(UserDao userDao) {
+    private final PasswordEncoder passwordEncoder;
+
+    public UserServiceImp(UserDao userDao, @Lazy PasswordEncoder passwordEncoder) {
         this.userDao = userDao;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public User findUserByEmail(String email) {
@@ -31,6 +36,7 @@ public class UserServiceImp implements UserService {
     @Override
     @Transactional
     public void save(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userDao.save(user);
     }
 
@@ -48,6 +54,7 @@ public class UserServiceImp implements UserService {
     @Override
     @Transactional
     public void saveAndFlush(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userDao.saveAndFlush(user);
     }
 
