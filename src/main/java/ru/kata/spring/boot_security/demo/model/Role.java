@@ -7,7 +7,7 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
-@Table(name = "roles_table")
+@Table(name = "roles")
 public class Role implements GrantedAuthority {
 
     @Id
